@@ -50,6 +50,15 @@
   :type 'string
   :group 'message-interface)
 
+(defcustom messages-are-flowing-mark-newlines-p 'guess
+  "How should `use-hard-newlines' mode handle a buffer with newlines but no
+hard newlines. See `use-hard-newlines' for details"
+  :group 'message-interface
+  :type '(choice (const :tag "Change nothing" never)
+                 (const :tag "Force marking" always)
+                 (const :tag "Force marking" t)
+                 (const :tag "Try to do the right thing" guess)))
+
 ;;;###autoload
 (defun messages-are-flowing-use-and-mark-hard-newlines ()
   "Turn on `use-hard-newlines', and make hard newlines visible.
@@ -57,7 +66,7 @@ The main use of this is to send \"flowed\" email messages, where
 line breaks within paragraphs are adjusted by the recipient's
 device, such that messages remain readable on narrow displays."
   (interactive)
-  (use-hard-newlines)
+  (use-hard-newlines t messages-are-flowing-mark-newlines-p)
   (add-hook 'after-change-functions 'messages-are-flowing--mark-hard-newlines nil t))
 
 (defun messages-are-flowing--mark-hard-newlines (beg end &rest _ignore)
