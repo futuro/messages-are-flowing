@@ -55,8 +55,8 @@
 hard newlines. See `use-hard-newlines' for details"
   :group 'message-interface
   :type '(choice (const :tag "Change nothing" never)
-                 (const :tag "Force marking" always)
-                 (const :tag "Force marking" t)
+                 (const :tag "Force marking"
+                        (choice always t))
                  (const :tag "Try to do the right thing" guess)))
 
 ;;;###autoload
